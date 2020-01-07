@@ -12,7 +12,7 @@
 
       <h3>Select a master breed</h3>
 
-      <select id="dogs" onchange="gayshit()">
+      <select id="dogs" onchange="dogFunction()">
         {% for dog in dogs %}
         <option>{{dog}}</option>
         {% endfor %}
@@ -24,7 +24,7 @@
 
 
 <script>
-  function gayshit() {
+  function dogFunction() {
     var dogs_js = JSON.parse(" {{ JSONdogs2|safe}} ");
     var dict_js = JSON.parse(" {{ JSONdict2|safe }}");
 
