@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="https://cdn.freebiesupply.com/logos/large/2x/pug-logo-png-transparent.png">
+    <meta charset="utf-8">
+    <title>Dog API</title>
+  </head>
+  <body>
+    <center><h1>Dog API Website</h1></center>
+    <br>
+
+
+      <h3>Select a master breed</h3>
+
+      <select id="dogs" onchange="gayshit()">
+        {% for dog in dogs %}
+        <option>{{dog}}</option>
+        {% endfor %}
+      </select>
+
+      <select id=subs></select>
+
+
+
+
+<script>
+  function gayshit() {
+    var dogs_js = JSON.parse(" {{ JSONdogs2|safe}} ");
+    var dict_js = JSON.parse(" {{ JSONdict2|safe }}");
+
+    var dogSelect = document.getElementById("dogs");
+    var subSelect = document.getElementById("subs");
+
+    dict_js[dogSelect.value].foreach(dog => {
+      var optElement = document.createElement("option");
+      optElement.text = dog;
+      subSelect.appendChild(optElement);
+    });
+
+  }
+</script>
+  </body>
+</html>
