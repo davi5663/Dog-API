@@ -10,11 +10,11 @@
     <br>
 
 
-      <h3>Select a master breed</h3>
+      <h3>Select a master breed & sub breed</h3>
 
       <select id="dogs" onchange="dogFunction()">
         {% for dog in dogs %}
-        <option>{{dog}}</option>
+        <option>{{dog|capitalize}}</option>
         {% endfor %}
       </select>
 
@@ -24,19 +24,29 @@
 
 
 <script>
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
   function dogFunction() {
-    var dogs_js = JSON.parse(" {{ JSONdogs2|safe}} ");
-    var dict_js = JSON.parse(" {{ JSONdict2|safe }}");
+    var dogs_js = JSON.parse('{{ JSONdogs2|safe}}');
+    var dict_js = JSON.parse('{{ JSONdict2|safe }}');
 
     var dogSelect = document.getElementById("dogs");
     var subSelect = document.getElementById("subs");
 
-    dict_js[dogSelect.value].foreach(dog => {
+
+
+    if (subSelect.childElementCount > 0) { subSelect.innerHTML = ''; }
+    else {
+    dict_js[dogSelect.value.toLowerCase()].forEach(dog => {
       var optElement = document.createElement("option");
-      optElement.text = dog;
+      optElement.text = capitalizeFirstLetter(dog);
       subSelect.appendChild(optElement);
     });
-
+  }
   }
 </script>
   </body>
